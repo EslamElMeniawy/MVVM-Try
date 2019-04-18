@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--region Padding and Margin-->
+    <dimen name="d_2_dp">2dp</dimen>
+    <dimen name="d_4_dp">4dp</dimen>
+    <dimen name="d_8_dp">8dp</dimen>
+    <dimen name="d_16_dp">16dp</dimen>
+    <dimen name="d_32_dp">32dp</dimen>
+    <dimen name="d_64_dp">64dp</dimen>
+    <!--endregion-->
+
+    <!--region Toolbar-->
+    <dimen name="toolbar_image_width">32dp</dimen>
+    <dimen name="toolbar_margin">@dimen/d_8_dp</dimen>
+    <!--endregion-->
+
+    <!--region Movie-->
+    <dimen name="movie_image_width">90dp</dimen>
+    <dimen name="movie_image_height">135dp</dimen>
+    <!--endregion-->
+</resources>

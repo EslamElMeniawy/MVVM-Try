@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">YTS_MVVM</string>
+    <string name="view_details">View Details</string>
+    <string name="movie_details">Movie Details</string>
+    <string name="synopsis">Synopsis</string>
+    <string name="ok">OK</string>
+    <string name="connection_error">Cannot connect to server\nPlease check Internet connection</string>
+    <string name="no_movies_available">No movies available</string>
+    <string name="error_get_movies">Error while getting movies</string>
+    <string name="error_click_reload">%1$s\n\nClick to reload</string>
+    <string name="no_connection_loading_offline">Cannot connect to server\nLoading movies offline</string>
+</resources>

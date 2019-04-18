@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="grey">#1D1D1D</color>
+    <color name="greyDark">#171717</color>
+    <color name="greyLight">#919191</color>
+    <color name="greyLightTrans">#8D919191</color>
+    <color name="green">#6AC045</color>
+    <color name="greenDark">#358f0f</color>
+    <color name="white">#FFFFFF</color>
+</resources>

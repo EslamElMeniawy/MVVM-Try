@@ -1,0 +1,111 @@
+<resources>
+
+    <!--region Base application theme-->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!--region App theme attributes-->
+        <item name="colorPrimary">@color/grey</item>
+        <item name="colorPrimaryVariant">@color/greyDark</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/green</item>
+        <item name="colorSecondaryVariant">@color/greenDark</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSurface">?attr/colorPrimary</item>
+        <item name="colorOnSurface">@color/greyLight</item>
+        <item name="android:colorBackground">?attr/colorPrimaryVariant</item>
+        <item name="colorOnBackground">@color/greyLight</item>
+        <!--endregion-->
+
+        <!--region Global type attributes-->
+        <item name="textAppearanceButton">@style/AppTextAppearance.Button</item>
+        <item name="fontFamily">@font/arimo</item>
+        <item name="android:fontFamily">@font/arimo</item>
+        <!--endregion-->
+
+        <!--region Global shape attributes-->
+        <item name="shapeAppearanceSmallComponent">@style/AppShapeAppearance.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/AppShapeAppearance.MediumComponent</item>
+        <!--endregion-->
+
+        <!--region Card widget style attribute-->
+        <item name="materialCardViewStyle">@style/AppCard</item>
+        <!--endregion-->
+    </style>
+
+    <style name="AppTextAppearance.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="AppShapeAppearance.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/d_16_dp</item>
+    </style>
+
+    <style name="AppShapeAppearance.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/d_16_dp</item>
+    </style>
+
+    <style name="PrimaryButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">?attr/colorPrimary</item>
+    </style>
+
+    <style name="SecondaryButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">?attr/colorSecondary</item>
+    </style>
+
+    <style name="AppCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">@dimen/d_8_dp</item>
+    </style>
+    <!--endregion-->
+
+    <!--region Toolbar-->
+    <style name="ToolbarText">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline5</item>
+    </style>
+
+    <style name="ToolbarButton" parent="Widget.MaterialComponents.Button.UnelevatedButton.Icon">
+        <item name="iconTint">?attr/colorOnPrimary</item>
+    </style>
+    <!--endregion-->
+
+    <!--region Movie-->
+    <style name="MovieTitle">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body2</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="GenresText">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+    <!--endregion-->
+
+    <!--region Latest movies-->
+    <style name="ErrorText">
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <!--endregion-->
+
+    <!--region Dialogs-->
+    <style name="DialogButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
+    <!--endregion-->
+
+</resources>
