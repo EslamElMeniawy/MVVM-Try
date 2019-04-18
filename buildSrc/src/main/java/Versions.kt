@@ -13,7 +13,7 @@ object Versions {
     }
 
     const val gradlePlugin = "3.3.2"
-    const val kotlin = "1.3.21"
+    const val kotlin = "1.3.30"
     const val coroutines = "1.2.0-alpha-2"
     const val navigation = "1.0.0"
     const val timber = "4.7.1"
