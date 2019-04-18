@@ -3,7 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data></data>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="elmeniawy.eslam.yts_mvvm.ui.home.MovieItemViewModel" />
+    </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -38,6 +43,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_movie_image"
                 app:layout_constraintTop_toTopOf="@+id/iv_movie_image"
+                app:mutableText="@{viewModel.getMovieTitle()}"
                 tools:text="Movie Title" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -49,6 +55,7 @@
                 android:textColor="?attr/colorOnSurface"
                 app:layout_constraintStart_toEndOf="@+id/iv_movie_image"
                 app:layout_constraintTop_toBottomOf="@+id/tv_movie_title"
+                app:mutableText="@{viewModel.getYear()}"
                 tools:text="2019" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -59,6 +66,7 @@
                 android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_year"
+                app:mutableText="@{viewModel.getRating()}"
                 tools:text="7.9 / 10" />
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -93,6 +101,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_movie_image"
                 app:layout_constraintTop_toBottomOf="@+id/tv_year"
+                app:mutableText="@{viewModel.getGenres()}"
                 tools:text="Action\t\tCrime" />
 
             <com.google.android.material.button.MaterialButton

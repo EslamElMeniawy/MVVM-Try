@@ -3,7 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data></data>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="elmeniawy.eslam.yts_mvvm.ui.movie_details.DownloadItemViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,6 +30,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:mutableText="@{viewModel.getTitle()}"
             tools:text="720p.BluRay" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
