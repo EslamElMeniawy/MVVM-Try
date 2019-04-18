@@ -7,6 +7,7 @@ import dagger.android.support.AndroidSupportInjectionModule
 import elmeniawy.eslam.yts_mvvm.model.api.ApiModule
 import elmeniawy.eslam.yts_mvvm.model.database.DatabaseModule
 import elmeniawy.eslam.yts_mvvm.root.App
+import elmeniawy.eslam.yts_mvvm.root.ViewModelModule
 import javax.inject.Singleton
 
 /**
@@ -22,7 +23,8 @@ import javax.inject.Singleton
         AppModule::class,
         AndroidBuilder::class,
         ApiModule::class,
-        DatabaseModule::class
+        DatabaseModule::class,
+        ViewModelModule::class
     ]
 )
 interface AppComponent {

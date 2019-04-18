@@ -35,4 +35,11 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun provideMoviesDao(appDatabase: AppDatabase) = appDatabase.moviesDao()
+
+    /**
+     * Provide instance of [DatabaseRepository].
+     */
+    @Provides
+    @Singleton
+    fun provideDatabaseRepository(moviesDao: MoviesDao): DatabaseRepository = DatabaseRepository(moviesDao)
 }
