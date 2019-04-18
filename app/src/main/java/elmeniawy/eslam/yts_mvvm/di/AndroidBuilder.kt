@@ -2,7 +2,7 @@ package elmeniawy.eslam.yts_mvvm.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import elmeniawy.eslam.yts_mvvm.MainActivity
+import elmeniawy.eslam.yts_mvvm.ui.MainActivity
 
 /**
  * AndroidBuilder
