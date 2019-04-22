@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
+import elmeniawy.eslam.yts_mvvm.utils.COLUMN_ID
 import elmeniawy.eslam.yts_mvvm.utils.TABLE_MOVIES
 
 /**
@@ -14,7 +15,7 @@ import elmeniawy.eslam.yts_mvvm.utils.TABLE_MOVIES
  */
 @Entity(tableName = TABLE_MOVIES)
 data class Movie(
-    @field:Json(name = "id") @PrimaryKey @ColumnInfo(name = "id") val movieId: Long = Long.MIN_VALUE,
+    @field:Json(name = "id") @PrimaryKey @ColumnInfo(name = COLUMN_ID) val movieId: Long = Long.MIN_VALUE,
     @field:Json(name = "imdb_code") @ColumnInfo(name = "imdb_code") val imdbCode: String = "",
     @field:Json(name = "title") @ColumnInfo(name = "title") val title: String = "",
     @field:Json(name = "year") @ColumnInfo(name = "year") val year: Long = Long.MIN_VALUE,

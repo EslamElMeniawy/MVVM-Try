@@ -1,4 +1,5 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="elmeniawy.eslam.yts_mvvm.ui.home.HomeFragment">
 
@@ -11,5 +12,47 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_error"
+            style="@style/ErrorText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/d_16_dp"
+            android:onClick="@{viewModel.errorClickListener}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mutableVisibility="@{viewModel.getErrorVisibility()}"
+            tools:text="Error while loading movies\nTap to retry" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_movies"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:mutableVisibility="@{viewModel.getDataVisibility()}"
+            app:onRefreshListener="@{() -> viewModel.onRefresh()}"
+            app:refreshing="@{viewModel.isRefreshIndicatorVisible}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_movies"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:adapter="@{viewModel.getMoviesAdapter()}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_movie" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mutableVisibility="@{viewModel.getLoadingVisibility()}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -17,6 +17,7 @@ class MovieItemViewModel @Inject constructor() : ViewModel() {
     private val year = MutableLiveData<String>()
     private val rating = MutableLiveData<String>()
     private val genres = MutableLiveData<String>()
+    private val imageUrl = MutableLiveData<String>()
 
     fun bind(movie: Movie) {
         movieTitle.value = movie.title
@@ -35,6 +36,7 @@ class MovieItemViewModel @Inject constructor() : ViewModel() {
         }
 
         genres.value = genresText
+        imageUrl.value = movie.mediumCoverImage
     }
 
     fun getMovieTitle(): MutableLiveData<String> {
@@ -51,5 +53,9 @@ class MovieItemViewModel @Inject constructor() : ViewModel() {
 
     fun getGenres(): MutableLiveData<String> {
         return genres
+    }
+
+    fun getImageUrl(): MutableLiveData<String> {
+        return imageUrl
     }
 }

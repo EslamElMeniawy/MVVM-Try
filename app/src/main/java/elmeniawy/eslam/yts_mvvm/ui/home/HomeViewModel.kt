@@ -1,13 +1,16 @@
 package elmeniawy.eslam.yts_mvvm.ui.home
 
 import android.view.View
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import elmeniawy.eslam.yts_mvvm.R
 import elmeniawy.eslam.yts_mvvm.model.api.ApiRepository
+import elmeniawy.eslam.yts_mvvm.model.data_classes.Movie
 import elmeniawy.eslam.yts_mvvm.model.data_classes.MoviesResponse
 import elmeniawy.eslam.yts_mvvm.model.database.DatabaseRepository
 import elmeniawy.eslam.yts_mvvm.utils.isNetworkThrowable
@@ -33,24 +36,48 @@ class HomeViewModel @Inject constructor(
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val errorVisibility: MutableLiveData<Int> = MutableLiveData()
     val dataVisibility: MutableLiveData<Int> = MutableLiveData()
-    val errorMessage: MutableLiveData<Int> = MutableLiveData()
+    val errorMessageId: MutableLiveData<Int> = MutableLiveData()
+    val alertErrorMessageId: MutableLiveData<Int> = MutableLiveData()
+    val isRefreshIndicatorVisible: ObservableBoolean = ObservableBoolean()
     val errorClickListener = View.OnClickListener { loadMovies() }
     private lateinit var deferred: Deferred<Response<MoviesResponse>>
-    private var pageToLoad: Long = 1
+    private var page: Long = 1
+    private var isLoading: Boolean = true
+    private var moviesCount: Long = 0
 
     init {
         loadMovies()
     }
 
+    fun onRefresh() {
+        page = 1
+        isRefreshIndicatorVisible.set(true)
+        getMovies()
+    }
+
+    fun loadMoreMovies() {
+        if (!isLoading && (moviesCount > (page * 20))) {
+            page++
+            isRefreshIndicatorVisible.set(true)
+            getMovies()
+        }
+    }
+
     //region Private methods
     private fun loadMovies() {
+        page = 1
         errorVisibility.value = View.GONE
         dataVisibility.value = View.GONE
         loadingVisibility.value = View.VISIBLE
+        getMovies()
+    }
+
+    private fun getMovies() {
+        isLoading = true
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                deferred = apiRepository.getMoviesAsync(pageToLoad)
+                deferred = apiRepository.getMoviesAsync(page)
                 val response = deferred.await()
 
                 viewModelScope.launch(Dispatchers.Main) {
@@ -71,20 +98,28 @@ class HomeViewModel @Inject constructor(
 
             if (moviesResponse.status == "ok") {
                 if (moviesResponse.data.movies.isNotEmpty()) {
-                    errorMessage.value = null
-                    moviesAdapter.updateMoviesList(moviesResponse.data.movies)
+                    errorMessageId.value = null
                     dataVisibility.value = View.VISIBLE
+
+                    // Set page returned from API.
+                    setPage(moviesResponse.data.pageNumber)
+
+                    // Set movies count.
+                    setMoviesCount(moviesResponse.data.movieCount)
+
+                    // Handle the returned movies list.
+                    handleMovies(moviesResponse.data.movies)
                 } else {
-                    errorMessage.value = R.string.no_movies_available
-                    errorVisibility.value = View.VISIBLE
+                    handleErrorDisplay(R.string.no_movies_available)
                 }
             } else {
-                errorMessage.value = R.string.error_get_movies
-                errorVisibility.value = View.VISIBLE
+                handleErrorDisplay(R.string.error_get_movies)
             }
         }
 
         loadingVisibility.value = View.GONE
+        isRefreshIndicatorVisible.set(false)
+        isLoading = false
     }
 
     private fun handleException(exception: Exception) {
@@ -95,9 +130,82 @@ class HomeViewModel @Inject constructor(
             messageId = R.string.connection_error
         }
 
-        errorMessage.value = messageId
-        errorVisibility.value = View.VISIBLE
+        handleErrorDisplay(messageId)
         loadingVisibility.value = View.GONE
+        isRefreshIndicatorVisible.set(false)
+        isLoading = false
+    }
+
+    private fun setPage(page: Long) {
+        this.page = if (page == Long.MIN_VALUE) {
+            1
+        } else {
+            page
+        }
+    }
+
+    private fun setMoviesCount(moviesCount: Long) {
+        this.moviesCount = if (moviesCount == Long.MIN_VALUE) {
+            0
+        } else {
+            moviesCount
+        }
+    }
+
+    private fun handleMovies(movies: List<Movie>) {
+        when (page) {
+            1.toLong() -> {
+                // Display movies to user.
+                moviesAdapter.setMoviesList(movies)
+
+                // Save movies.
+                saveMovies(movies)
+            }
+
+            else -> {
+                // Add movies to current available movies list.
+                moviesAdapter.addMovies(movies)
+            }
+        }
+    }
+
+    private fun saveMovies(movies: List<Movie>) {
+        // Delete old movies from database if existing and save new movies for offline use.
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseRepository.deleteMovies()
+            databaseRepository.insertMovies(movies)
+        }
+    }
+
+    private fun handleErrorDisplay(errorId: Int) {
+        when (page) {
+            1.toLong() -> loadOffline(errorId)
+            else -> alertErrorMessageId.value = errorId
+        }
+    }
+
+    private fun loadOffline(errorId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val offlineMovies = databaseRepository.getMovies()
+            val listType = Types.newParameterizedType(List::class.java, Movie::class.java)
+            val jsonAdapter: JsonAdapter<List<Movie>> = moshi.adapter(listType)
+            Timber.d("OfflineMovies: ${jsonAdapter.toJson(offlineMovies)}")
+            handleOfflineMovies(offlineMovies, errorId)
+        }
+    }
+
+    private fun handleOfflineMovies(offlineMovies: List<Movie>, errorId: Int) {
+        viewModelScope.launch(Dispatchers.Main) {
+            if (offlineMovies.isNotEmpty()) {
+                moviesAdapter.setMoviesList(offlineMovies)
+                alertErrorMessageId.value = errorId
+                errorVisibility.value = View.GONE
+                dataVisibility.value = View.VISIBLE
+            } else {
+                errorMessageId.value = errorId
+                errorVisibility.value = View.VISIBLE
+            }
+        }
     }
     //endregion
 }

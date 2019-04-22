@@ -8,5 +8,5 @@
     <string name="no_movies_available">No movies available</string>
     <string name="error_get_movies">Error while getting movies</string>
     <string name="error_click_reload">%1$s\n\nClick to reload</string>
-    <string name="no_connection_loading_offline">Cannot connect to server\nLoading movies offline</string>
+    <string name="error_loading_offline">%1$s\n\nLoading movies offline</string>
 </resources>

@@ -15,7 +15,7 @@ import elmeniawy.eslam.yts_mvvm.model.data_classes.Movie
  * Roqay
  */
 class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
-    private lateinit var moviesList: List<Movie>
+    private lateinit var moviesList: MutableList<Movie>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemMovieBinding = DataBindingUtil.inflate(
@@ -35,9 +35,15 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
         return if (::moviesList.isInitialized) moviesList.size else 0
     }
 
-    fun updateMoviesList(moviesList: List<Movie>) {
-        this.moviesList = moviesList
+    fun setMoviesList(moviesList: List<Movie>) {
+        this.moviesList = moviesList.toMutableList()
         notifyDataSetChanged()
+    }
+
+    fun addMovies(moviesList: List<Movie>) {
+        val lastId = this.moviesList.lastIndex
+        this.moviesList.addAll(moviesList)
+        notifyItemRangeChanged(lastId, moviesList.size)
     }
 
     class ViewHolder(private val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {

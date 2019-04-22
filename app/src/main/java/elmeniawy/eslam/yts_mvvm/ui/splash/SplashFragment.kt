@@ -45,10 +45,11 @@ class SplashFragment : Fragment(), Injectable {
         // Initialize view model.
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(SplashViewModel::class.java)
         observeViewModel(viewModel)
+        binding.viewModel = viewModel
     }
     //endregion
 
-    //region View methods
+    //region Private methods
     private fun observeViewModel(viewModel: SplashViewModel) {
         // Observe open home flag.
         viewModel.isOpenHome.observe(this, Observer { isOpenHome -> if (isOpenHome) openHome() })

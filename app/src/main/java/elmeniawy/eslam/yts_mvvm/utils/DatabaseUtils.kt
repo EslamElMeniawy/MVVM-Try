@@ -12,3 +12,4 @@ import elmeniawy.eslam.yts_mvvm.BuildConfig
 const val DATABASE_VERSION = 1
 const val DATABASE_NAME = "${BuildConfig.PACKAGE_NAME}.YTSDatabase"
 const val TABLE_MOVIES = "movies"
+const val COLUMN_ID = "id"

@@ -28,7 +28,7 @@ import elmeniawy.eslam.yts_mvvm.R
  * @param activity Activity to get system service with.
  */
 fun hideSoftKeyboard(@Nullable activity: Activity?) {
-    if (activity != null) {
+    activity?.let {
         val inputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
 
         if (activity.currentFocus != null) {
@@ -47,7 +47,7 @@ fun hideSoftKeyboard(@Nullable activity: Activity?) {
  * @param progressBar The progress bar to set color.
  */
 fun setProgressBarColor(context: Context?, progressBar: ProgressBar) {
-    if (context != null) {
+    context?.let {
         progressBar.indeterminateDrawable
             .setColorFilter(
                 ContextCompat.getColor(context, R.color.green),
@@ -64,7 +64,7 @@ fun setProgressBarColor(context: Context?, progressBar: ProgressBar) {
  */
 @SuppressLint("InflateParams")
 fun showErrorMessageDialog(activity: Activity?, errorMessage: String) {
-    if (activity != null) {
+    activity?.let {
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
         val inflater = activity.layoutInflater
         val view = inflater.inflate(R.layout.dialog_error, null)
@@ -73,7 +73,7 @@ fun showErrorMessageDialog(activity: Activity?, errorMessage: String) {
         val okButton = view.findViewById<MaterialButton>(R.id.bt_ok)
         val dialog = builder.setView(view).create()
         okButton.setOnClickListener { dialog.dismiss() }
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 }
