@@ -4,6 +4,8 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
 import elmeniawy.eslam.yts_mvvm.R
 import elmeniawy.eslam.yts_mvvm.model.api.ApiRepository
 import elmeniawy.eslam.yts_mvvm.model.data_classes.MoviesResponse
@@ -24,7 +26,8 @@ import javax.inject.Inject
  */
 class HomeViewModel @Inject constructor(
     private val apiRepository: ApiRepository,
-    private val databaseRepository: DatabaseRepository
+    private val databaseRepository: DatabaseRepository,
+    private val moshi: Moshi
 ) : ViewModel() {
     val moviesAdapter: MoviesAdapter = MoviesAdapter()
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
@@ -50,15 +53,22 @@ class HomeViewModel @Inject constructor(
                 deferred = apiRepository.getMoviesAsync(pageToLoad)
                 val response = deferred.await()
 
-                handleResponse(response.body())
+                viewModelScope.launch(Dispatchers.Main) {
+                    handleResponse(response.body())
+                }
             } catch (exception: Exception) {
-                handleException(exception)
+                viewModelScope.launch(Dispatchers.Main) {
+                    handleException(exception)
+                }
             }
         }
     }
 
     private fun handleResponse(moviesResponse: MoviesResponse?) {
         moviesResponse?.let {
+            val jsonAdapter: JsonAdapter<MoviesResponse> = moshi.adapter(MoviesResponse::class.java)
+            Timber.d("MoviesResponse: ${jsonAdapter.toJson(moviesResponse)}")
+
             if (moviesResponse.status == "ok") {
                 if (moviesResponse.data.movies.isNotEmpty()) {
                     errorMessage.value = null

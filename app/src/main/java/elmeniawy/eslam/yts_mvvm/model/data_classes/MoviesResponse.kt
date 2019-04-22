@@ -9,7 +9,7 @@ import com.squareup.moshi.Json
  * Roqay
  */
 data class MoviesResponse(
-    @Json(name = "status") val status: String = "",
-    @Json(name = "status_message") val statusMessage: String = "",
-    @Json(name = "data") val data: Data = Data()
+    @field:Json(name = "status") val status: String = "",
+    @field:Json(name = "status_message") val statusMessage: String = "",
+    @field:Json(name = "data") val data: Data = Data()
 )

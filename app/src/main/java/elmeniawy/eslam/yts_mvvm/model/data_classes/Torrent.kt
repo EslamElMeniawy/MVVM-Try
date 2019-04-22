@@ -9,8 +9,8 @@ import com.squareup.moshi.Json
  * Roqay
  */
 data class Torrent(
-    @Json(name = "url") val url: String = "",
-    @Json(name = "quality") val quality: String = "",
-    @Json(name = "type") val type: String = "",
-    @Json(name = "size") val size: String = ""
+    @field:Json(name = "url") val url: String = "",
+    @field:Json(name = "quality") val quality: String = "",
+    @field:Json(name = "type") val type: String = "",
+    @field:Json(name = "size") val size: String = ""
 )

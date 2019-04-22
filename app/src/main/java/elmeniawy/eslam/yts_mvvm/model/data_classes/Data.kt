@@ -9,8 +9,8 @@ import com.squareup.moshi.Json
  * Roqay
  */
 data class Data(
-    @Json(name = "movie_count") val movieCount: Long = Long.MIN_VALUE,
-    @Json(name = "limit") val limit: Long = Long.MIN_VALUE,
-    @Json(name = "page_number") val pageNumber: Long = Long.MIN_VALUE,
-    @Json(name = "movies") val movies: List<Movie> = listOf()
+    @field:Json(name = "movie_count") val movieCount: Long = Long.MIN_VALUE,
+    @field:Json(name = "limit") val limit: Long = Long.MIN_VALUE,
+    @field:Json(name = "page_number") val pageNumber: Long = Long.MIN_VALUE,
+    @field:Json(name = "movies") val movies: List<Movie> = listOf()
 )
