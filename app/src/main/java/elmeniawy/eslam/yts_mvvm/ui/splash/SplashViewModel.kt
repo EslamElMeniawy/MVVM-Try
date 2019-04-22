@@ -1,6 +1,7 @@
 package elmeniawy.eslam.yts_mvvm.ui.splash
 
 import androidx.lifecycle.ViewModel
+import javax.inject.Inject
 
 /**
  * SplashViewModel
@@ -8,5 +9,5 @@ import androidx.lifecycle.ViewModel
  * Created by Eslam El-Meniawy on 18-Apr-2019.
  * Roqay
  */
-class SplashViewModel : ViewModel() {
+class SplashViewModel @Inject constructor() : ViewModel() {
 }

@@ -3,6 +3,7 @@ package elmeniawy.eslam.yts_mvvm.ui.movie_details
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import elmeniawy.eslam.yts_mvvm.model.data_classes.Torrent
+import javax.inject.Inject
 
 /**
  * DownloadItemViewModel
@@ -10,7 +11,7 @@ import elmeniawy.eslam.yts_mvvm.model.data_classes.Torrent
  * Created by Eslam El-Meniawy on 18-Apr-2019.
  * Roqay
  */
-class DownloadItemViewModel : ViewModel() {
+class DownloadItemViewModel @Inject constructor() : ViewModel() {
     private val title = MutableLiveData<String>()
 
     fun bind(torrent: Torrent) {
