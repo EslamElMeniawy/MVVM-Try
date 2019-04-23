@@ -3,6 +3,7 @@ plugins {
     kotlin(Plugins.kotlinAndroid)
     kotlin(Plugins.kotlinExtensions)
     kotlin(Plugins.kapt)
+    id(Plugins.navigationTypeSafeArguments)
 }
 
 android {

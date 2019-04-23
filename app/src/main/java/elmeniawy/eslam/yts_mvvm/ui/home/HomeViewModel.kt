@@ -32,7 +32,14 @@ class HomeViewModel @Inject constructor(
     private val databaseRepository: DatabaseRepository,
     private val moshi: Moshi
 ) : ViewModel() {
-    val moviesAdapter: MoviesAdapter = MoviesAdapter()
+    val moviesAdapter: MoviesAdapter = MoviesAdapter(object : MovieClickCallback {
+        override fun onClick(movie: Movie) {
+            val jsonAdapter: JsonAdapter<Movie> = moshi.adapter(Movie::class.java)
+            Timber.d("MovieToOpen: ${jsonAdapter.toJson(movie)}")
+            movieToOpen.value = jsonAdapter.toJson(movie)
+        }
+    })
+
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val errorVisibility: MutableLiveData<Int> = MutableLiveData()
     val dataVisibility: MutableLiveData<Int> = MutableLiveData()
@@ -40,28 +47,35 @@ class HomeViewModel @Inject constructor(
     val alertErrorMessageId: MutableLiveData<Int> = MutableLiveData()
     val isRefreshIndicatorVisible: ObservableBoolean = ObservableBoolean()
     val errorClickListener = View.OnClickListener { loadMovies() }
+    val movieToOpen: MutableLiveData<String> = MutableLiveData()
     private lateinit var deferred: Deferred<Response<MoviesResponse>>
     private var page: Long = 1
     private var isLoading: Boolean = true
     private var moviesCount: Long = 0
 
     init {
+        movieToOpen.value = ""
         loadMovies()
     }
 
+    //region ViewModel methods
     fun onRefresh() {
         page = 1
         isRefreshIndicatorVisible.set(true)
-        getMovies()
+        getMovies(page)
     }
 
     fun loadMoreMovies() {
         if (!isLoading && (moviesCount > (page * 20))) {
-            page++
             isRefreshIndicatorVisible.set(true)
-            getMovies()
+            getMovies(page + 1)
         }
     }
+
+    fun clearMovie() {
+        movieToOpen.value = ""
+    }
+    //endregion
 
     //region Private methods
     private fun loadMovies() {
@@ -69,10 +83,10 @@ class HomeViewModel @Inject constructor(
         errorVisibility.value = View.GONE
         dataVisibility.value = View.GONE
         loadingVisibility.value = View.VISIBLE
-        getMovies()
+        getMovies(page)
     }
 
-    private fun getMovies() {
+    private fun getMovies(page: Long) {
         isLoading = true
 
         viewModelScope.launch(Dispatchers.IO) {

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
@@ -102,18 +103,21 @@ class HomeFragment : Fragment(), Injectable {
 
         // Initialize view model.
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(HomeViewModel::class.java)
-        observeViewModel(viewModel)
+        observeViewModel()
         binding.viewModel = viewModel
     }
     //endregion
 
     //region Private methods
-    private fun observeViewModel(viewModel: HomeViewModel) {
+    private fun observeViewModel() {
         // Observe error message id for displaying error inside error text view.
         observeErrorMessageId()
 
         // Observe alert error message id for displaying error inside alert.
         observeAlertErrorMessageId()
+
+        // Observe movie to open.
+        observeMovieToOpen()
     }
 
     private fun observeErrorMessageId() {
@@ -133,6 +137,23 @@ class HomeFragment : Fragment(), Injectable {
                 )
             }
         })
+    }
+
+    private fun observeMovieToOpen() {
+        viewModel.movieToOpen.observe(this, Observer { movie ->
+            if (movie.isNotEmpty()) {
+                openMovieDetails(movie)
+                viewModel.clearMovie()
+            }
+        })
+    }
+
+    private fun openMovieDetails(movie: String) {
+        activity?.let {
+            val action = HomeFragmentDirections.actionHomeFragmentToMovieDetailsFragment()
+            action.movieString = movie
+            Navigation.findNavController(it, R.id.nav_host_fragment).navigate(action)
+        }
     }
     //endregion
 }

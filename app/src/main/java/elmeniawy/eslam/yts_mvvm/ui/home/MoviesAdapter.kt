@@ -14,7 +14,8 @@ import elmeniawy.eslam.yts_mvvm.model.data_classes.Movie
  * Created by Eslam El-Meniawy on 22-Apr-2019.
  * Roqay
  */
-class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
+class MoviesAdapter(private val movieClickCallback: MovieClickCallback) :
+    RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
     private lateinit var moviesList: MutableList<Movie>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,6 +25,7 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
             false
         )
 
+        binding.callback = movieClickCallback
         return ViewHolder(binding)
     }
 

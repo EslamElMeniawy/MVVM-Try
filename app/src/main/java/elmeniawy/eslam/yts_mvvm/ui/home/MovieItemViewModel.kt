@@ -18,8 +18,10 @@ class MovieItemViewModel @Inject constructor() : ViewModel() {
     private val rating = MutableLiveData<String>()
     private val genres = MutableLiveData<String>()
     private val imageUrl = MutableLiveData<String>()
+    private lateinit var movie: Movie
 
     fun bind(movie: Movie) {
+        this.movie = movie
         movieTitle.value = movie.title
         year.value = movie.year.toString()
         rating.value = String.format(Locale.getDefault(), "%.1f/10", movie.rating)
@@ -57,5 +59,9 @@ class MovieItemViewModel @Inject constructor() : ViewModel() {
 
     fun getImageUrl(): MutableLiveData<String> {
         return imageUrl
+    }
+
+    fun getMovie(): Movie {
+        return movie
     }
 }

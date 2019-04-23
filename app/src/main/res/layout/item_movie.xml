@@ -8,12 +8,17 @@
         <variable
             name="viewModel"
             type="elmeniawy.eslam.yts_mvvm.ui.home.MovieItemViewModel" />
+
+        <variable
+            name="callback"
+            type="elmeniawy.eslam.yts_mvvm.ui.home.MovieClickCallback" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/d_16_dp">
+        android:layout_margin="@dimen/d_16_dp"
+        android:onClick="@{() ->  callback.onClick(viewModel.getMovie())}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -111,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/d_8_dp"
                 android:layout_marginEnd="@dimen/d_8_dp"
+                android:onClick="@{() ->  callback.onClick(viewModel.getMovie())}"
                 android:text="@string/view_details"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_movie_image"
                 app:layout_constraintEnd_toEndOf="parent"
