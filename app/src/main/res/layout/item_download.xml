@@ -8,6 +8,10 @@
         <variable
             name="viewModel"
             type="elmeniawy.eslam.yts_mvvm.ui.movie_details.DownloadItemViewModel" />
+
+        <variable
+            name="callback"
+            type="elmeniawy.eslam.yts_mvvm.root.DownloadClickCallback" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,6 +23,7 @@
             style="@style/PrimaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{() ->  callback.onClick(viewModel.getTorrent())}"
             android:layout_margin="@dimen/d_8_dp"
             android:ellipsize="end"
             android:maxLines="2"

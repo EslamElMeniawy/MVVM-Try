@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import elmeniawy.eslam.yts_mvvm.R
 import elmeniawy.eslam.yts_mvvm.databinding.ItemDownloadBinding
 import elmeniawy.eslam.yts_mvvm.model.data_classes.Torrent
+import elmeniawy.eslam.yts_mvvm.root.DownloadClickCallback
 
 /**
  * TorrentsAdapter
@@ -14,7 +15,8 @@ import elmeniawy.eslam.yts_mvvm.model.data_classes.Torrent
  * Created by Eslam El-Meniawy on 22-Apr-2019.
  * Roqay
  */
-class DownloadAdapter : RecyclerView.Adapter<DownloadAdapter.ViewHolder>() {
+class DownloadAdapter(private val downloadClickCallback: DownloadClickCallback) :
+    RecyclerView.Adapter<DownloadAdapter.ViewHolder>() {
     private lateinit var torrentsList: List<Torrent>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,6 +26,7 @@ class DownloadAdapter : RecyclerView.Adapter<DownloadAdapter.ViewHolder>() {
             false
         )
 
+        binding.callback = downloadClickCallback
         return ViewHolder(binding)
     }
 

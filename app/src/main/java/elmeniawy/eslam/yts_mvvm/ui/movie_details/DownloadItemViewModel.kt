@@ -12,8 +12,10 @@ import elmeniawy.eslam.yts_mvvm.model.data_classes.Torrent
  */
 class DownloadItemViewModel : ViewModel() {
     private val title = MutableLiveData<String>()
+    private lateinit var torrent: Torrent
 
     fun bind(torrent: Torrent) {
+        this.torrent = torrent
         var downloadText = torrent.quality
 
         if (torrent.type.isNotEmpty()) {
@@ -29,5 +31,9 @@ class DownloadItemViewModel : ViewModel() {
 
     fun getTitle(): MutableLiveData<String> {
         return title
+    }
+
+    fun getTorrent(): Torrent {
+        return torrent
     }
 }

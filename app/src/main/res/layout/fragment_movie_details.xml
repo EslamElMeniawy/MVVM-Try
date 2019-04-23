@@ -1,4 +1,5 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="elmeniawy.eslam.yts_mvvm.ui.movie_details.MovieDetailsFragment">
 
@@ -11,5 +12,204 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_error"
+            style="@style/ErrorText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/d_16_dp"
+            android:text="@string/error_load_movie"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mutableVisibility="@{viewModel.getErrorVisibility()}" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:mutableVisibility="@{viewModel.getDataVisibility()}">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_background"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{viewModel.getBackgroundUrl()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_movie_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/d_16_dp"
+                    android:layout_marginTop="@dimen/d_16_dp"
+                    android:layout_marginEnd="@dimen/d_16_dp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textStyle="bold"
+                    app:mutableText="@{viewModel.getMovieTitle()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Movie Title" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_year"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/d_8_dp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textStyle="bold"
+                    app:mutableText="@{viewModel.getYear()}"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_movie_title"
+                    app:layout_constraintStart_toStartOf="@+id/tv_movie_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_movie_title"
+                    tools:text="2019" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_genres"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/d_8_dp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textStyle="bold"
+                    app:mutableText="@{viewModel.getGenres()}"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_movie_title"
+                    app:layout_constraintStart_toStartOf="@+id/tv_movie_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_year"
+                    tools:text="Animation / Comedy / Family / Fantasy / Musical" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/d_16_dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_genres">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_movie_image"
+                        android:layout_width="@dimen/movie_image_width"
+                        android:layout_height="@dimen/movie_image_height"
+                        android:layout_marginStart="@dimen/d_16_dp"
+                        android:background="@drawable/shadow_white"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/placeholder"
+                        app:imageUrl="@{viewModel.getImageUrl()}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_runtime"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/d_16_dp"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textStyle="bold"
+                        app:mutableText="@{viewModel.getRuntime()}"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_duration"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/tv_rating"
+                        app:layout_constraintTop_toTopOf="@+id/iv_duration"
+                        tools:text="111" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_duration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_imdb"
+                        app:layout_constraintStart_toStartOf="@+id/iv_imdb"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_duration_green" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_imdb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/d_16_dp"
+                        android:onClick="@{viewModel.imdbClickListener}"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_rating"
+                        app:layout_constraintStart_toEndOf="@+id/iv_movie_image"
+                        app:layout_constraintTop_toTopOf="@+id/tv_rating"
+                        app:srcCompat="@drawable/ic_logo_imdb" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_rating"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/d_16_dp"
+                        android:layout_marginTop="@dimen/d_16_dp"
+                        android:layout_marginEnd="@dimen/d_16_dp"
+                        android:onClick="@{viewModel.imdbClickListener}"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textStyle="bold"
+                        app:mutableText="@{viewModel.getRating()}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iv_imdb"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_runtime"
+                        tools:text="6.4" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_downloads"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/d_16_dp"
+                        app:adapter="@{viewModel.getDownloadAdapter()}"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iv_movie_image"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_rating"
+                        app:spanCount="2"
+                        tools:listitem="@layout/item_download" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_synopsis_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/d_16_dp"
+                    android:layout_marginTop="@dimen/d_16_dp"
+                    android:layout_marginEnd="@dimen/d_16_dp"
+                    android:text="@string/synopsis"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_synopsis"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/d_16_dp"
+                    android:layout_marginTop="@dimen/d_8_dp"
+                    android:layout_marginEnd="@dimen/d_16_dp"
+                    android:textColor="?attr/colorOnBackground"
+                    app:mutableText="@{viewModel.getSynopsis()}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_synopsis_title"
+                    tools:text="For their eighth fully animated feature, Illumination and Universal Pictures present The Grinch, based on Dr. Seuss' beloved holiday classic. The Grinch tells the story of a cynical grump who goes on a mission to steal Christmas, only to have his heart changed by a young girl's generous holiday spirit. Funny, heartwarming, and visually stunning, it's a universal story about the spirit of Christmas and the indomitable power of optimism. Academy Award® nominee Benedict Cumberbatch lends his voice to the infamous Grinch, who lives a solitary life inside a cave on Mt. Crumpet with only his loyal dog, Max, for company. With a cave rigged with inventions and contraptions for his day-to-day needs, the Grinch only sees his neighbors in Whoville when he runs out of food. Each year at Christmas they disrupt his tranquil solitude with their increasingly bigger, brighter, and louder celebrations. When the Whos declare they are going to make Christmas three times bigger this year, the Grinch ..." />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
