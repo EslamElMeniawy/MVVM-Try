@@ -11,7 +11,7 @@
 
         <variable
             name="callback"
-            type="elmeniawy.eslam.yts_mvvm.ui.home.MovieClickCallback" />
+            type="elmeniawy.eslam.yts_mvvm.root.MovieClickCallback" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

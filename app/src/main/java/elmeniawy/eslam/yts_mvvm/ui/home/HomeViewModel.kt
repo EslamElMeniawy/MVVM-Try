@@ -13,6 +13,7 @@ import elmeniawy.eslam.yts_mvvm.model.api.ApiRepository
 import elmeniawy.eslam.yts_mvvm.model.data_classes.Movie
 import elmeniawy.eslam.yts_mvvm.model.data_classes.MoviesResponse
 import elmeniawy.eslam.yts_mvvm.model.database.DatabaseRepository
+import elmeniawy.eslam.yts_mvvm.root.MovieClickCallback
 import elmeniawy.eslam.yts_mvvm.utils.isNetworkThrowable
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers

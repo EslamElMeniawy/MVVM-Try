@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import elmeniawy.eslam.yts_mvvm.R
 import elmeniawy.eslam.yts_mvvm.databinding.ItemMovieBinding
 import elmeniawy.eslam.yts_mvvm.model.data_classes.Movie
+import elmeniawy.eslam.yts_mvvm.root.MovieClickCallback
 
 /**
  * MoviesAdapter
