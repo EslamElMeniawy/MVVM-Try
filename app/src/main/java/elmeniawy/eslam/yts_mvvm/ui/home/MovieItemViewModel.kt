@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import elmeniawy.eslam.yts_mvvm.model.data_classes.Movie
 import java.util.*
-import javax.inject.Inject
 
 /**
  * MovieItemViewModel
@@ -12,7 +11,7 @@ import javax.inject.Inject
  * Created by Eslam El-Meniawy on 18-Apr-2019.
  * Roqay
  */
-class MovieItemViewModel @Inject constructor() : ViewModel() {
+class MovieItemViewModel : ViewModel() {
     private val movieTitle = MutableLiveData<String>()
     private val year = MutableLiveData<String>()
     private val rating = MutableLiveData<String>()
